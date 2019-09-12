@@ -53,7 +53,7 @@ const path = map(start, end);
 // 	6: Object { x: 3, y: 4, … }
 // ]
 
-// 	Generated path
+// Generated path
 const gridWithPath = [
 	[⚫, ⚫, ⚫, ⚫, 🍀],
 	[🍀, 🌲, 🌲, ⚫, 🍀],
