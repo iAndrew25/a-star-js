@@ -1,5 +1,5 @@
 # A* algorithm in JS
-Find the shortest path in a matrix.
+Finds the shortest path between two points in a matrix.
 
 ### Usage
 ```javascript
