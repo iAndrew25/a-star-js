@@ -12,9 +12,9 @@
 	'use strict';
 
 	const cloneEmptyGrid = ({grid, legend}) => new Array(grid.length).fill()
-		.map((_, x) => 
-			new Array(grid[x].length).fill()
-				.map((_, y) => ({
+		.map((_, y) => 
+			new Array(grid[y].length).fill()
+				.map((_, x) => ({
 					x,
 					y,
 					f: 0,
@@ -23,7 +23,7 @@
 					parent: null,
 					cost: 1,
 					isWalkable: true,
-					...legend[grid[x][y]]
+					...legend[grid[y][x]]
 				}))
 		);
 
@@ -36,10 +36,10 @@
 	const isObject = obj => typeof obj === 'object';
 
 	const getNeighbors = (grid, {x, y}) => [
-		grid[x + 1] && grid[x + 1][y],
-		grid[x - 1] && grid[x - 1][y],
-		grid[x][y + 1],
-		grid[x][y - 1]
+		grid[y + 1] && grid[y + 1][x],
+		grid[y - 1] && grid[y - 1][x],
+		grid[y][x + 1],
+		grid[y][x - 1]
 	].filter(neighbor => isObject(neighbor) && neighbor.isWalkable);
 
 	const findNodeInList = (list, node) => list.some(({x, y}) => x === node.x && y === node.y);
@@ -50,16 +50,16 @@
 		const gridInit = cloneEmptyGrid({grid, legend});
 
 		return (start, goal) => {
-			if(!gridInit[start.x] || !gridInit[start.x][start.y] || !gridInit[start.x][start.y].isWalkable) {
+			if(!gridInit[start.y] || !gridInit[start.y][start.x] || !gridInit[start.y][start.x].isWalkable) {
 				return 'Invalid start position.';
-			} else if(!gridInit[goal.x] || !gridInit[goal.x][goal.y] || !gridInit[goal.x][goal.y].isWalkable) {
+			} else if(!gridInit[goal.y] || !gridInit[goal.y][goal.x] || !gridInit[goal.y][goal.x].isWalkable) {
 				return 'Invalid goal position.'
 			} else if(isGoal(start, goal)) {
 				return 'Start and goal positions are the same.';
 			}
 
 			const closedList = [];
-			let openList = [gridInit[start.x][start.y]];
+			let openList = [gridInit[start.y][start.x]];
 
 			while(openList.length) {
 				const currentNode = findSmallestNumber(openList);
